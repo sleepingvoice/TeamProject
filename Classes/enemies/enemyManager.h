@@ -5,15 +5,15 @@ USING_NS_CC;
 #include "enemies/enemy1.h"
 #include "enemies/enemy2.h"
 
-class enemyManager :public Layer
+class enemyManager:public Layer
 {
 public:
 	bool init();
 
 	Vector<enemy1*> e1_vec;
-	//ÇöÀç È­¸é¿¡¼­ »ç¿ëÁßÀÎ °´Ã¼¸¦ ÀúÀåÇÏ´Â º¤ÅÍ
+	//í˜„ì¬ í™”ë©´ì—ì„œ ì‚¬ìš©ì¤‘ì¸ ê°ì²´ë¥¼ ì €ì¥í•˜ëŠ” ë²¡í„°
 	Vector<enemy1*> e1_vec_wait;
-	//¾ÆÁ÷ »ç¿ëÇÏ±â ÀüÀÎ °´Ã¼¸¦ ÀúÀåÇÏ´Â º¤ÅÍ
+	//ì•„ì§ ì‚¬ìš©í•˜ê¸° ì „ì¸ ê°ì²´ë¥¼ ì €ì¥í•˜ëŠ” ë²¡í„°
 
 	Vector<enemy2*> e2_vec;
 	Vector<enemy2*> e2_vec_wait;
@@ -21,10 +21,10 @@ public:
 	void update(float dt);
 
 	float e1_timer, e2_timer;
-	//¿¡³Ê¹Ì1,2 »ı¼º Å¸ÀÌ¸Ó
+	//ì—ë„ˆë¯¸1,2 ìƒì„± íƒ€ì´ë¨¸
 
 	int e2_y;
-	//¿¡³Ê¹Ì2 yÃà Á¤ÇÏ´Â int
+	//ì—ë„ˆë¯¸2 yì¶• ì •í•˜ëŠ” int
 
 	static enemyManager* getIns();
 
