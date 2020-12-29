@@ -4,12 +4,13 @@ static Player* obj = 0;
 
 bool Player::init()
 {
+	hp = 100;
 	left = false;
 	right = false;
 	up = false;
 	down = false;
 
-    Sprite* player = Sprite::create("PLAYER.png");
+    Sprite* player = Sprite::create("playertest.png");
     player->setPosition(Vec2(100, 360));
     this->addChild(player);
     player->setName("player");
@@ -60,17 +61,17 @@ void Player::update(float dt)
 {
 	Sprite* p = (Sprite*)this->getChildByName("player");
 	if (left == true)
-		p->setPositionX(p->getPositionX() - 200 * dt);
+		p->setPositionX(p->getPositionX() - 350 * dt);
 	else if (right == true)
-		p->setPositionX(p->getPositionX() + 200 * dt);
+		p->setPositionX(p->getPositionX() + 350 * dt);
 	if (down == true)
-		p->setPositionY(p->getPositionY() - 200 * dt);
+		p->setPositionY(p->getPositionY() - 350 * dt);
 	if (up == true)
-		p->setPositionY(p->getPositionY() + 200 * dt);
+		p->setPositionY(p->getPositionY() + 350 * dt);
 }
 
 Rect Player::getBox()
-{
+{//충돌 박스 보정
 	Sprite* p = (Sprite*)this->getChildByName("player");
 	Rect rt = p->getBoundingBox();
 	rt.origin += this->getPosition();
