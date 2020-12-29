@@ -1,0 +1,11 @@
+#include "enemies/enemyManager.h" 하시고
+
+init에
+enemyManager* em = enemyManager::getIns();
+this->addChild(em);
+
+적으셔서 사용하시면 됩니다
+
+
+기본 베이스만 만든거고 리소스는 일단 임시로 쓰는거
+getBox 만들어 놓은거 이용해서 각자 충돌처리 만드시면 될 듯 합니다
