@@ -2,9 +2,9 @@
 #include <cocos2d.h>
 USING_NS_CC;
 
-//·£´ıÇÑ y À§Ä¡¿¡¼­ ±×Àú ¿ŞÂÊÀ¸·Î Âß °¡´Â ¿¡³Ê¹Ì
+//ëœë¤í•œ y ìœ„ì¹˜ì—ì„œ ê·¸ì € ì™¼ìª½ìœ¼ë¡œ ì­‰ ê°€ëŠ” ì—ë„ˆë¯¸
 
-class enemy1 :public Node
+class enemy1:public Node
 {
 public:
 	bool init();
