@@ -10,11 +10,10 @@ bool Player::init()
 	up = false;
 	down = false;
 
-    Sprite* player = Sprite::create("PLAYER.png");
+    Sprite* player = Sprite::create("playertest.png");
     player->setPosition(Vec2(100, 360));
     this->addChild(player);
     player->setName("player");
-	player->setScale(0.5);
 
 	EventListenerKeyboard* km = EventListenerKeyboard::create();
 	km->onKeyPressed = CC_CALLBACK_2(Player::Press, this);
@@ -62,13 +61,13 @@ void Player::update(float dt)
 {
 	Sprite* p = (Sprite*)this->getChildByName("player");
 	if (left == true)
-		p->setPositionX(p->getPositionX() - 200 * dt);
+		p->setPositionX(p->getPositionX() - 350 * dt);
 	else if (right == true)
-		p->setPositionX(p->getPositionX() + 200 * dt);
+		p->setPositionX(p->getPositionX() + 350 * dt);
 	if (down == true)
-		p->setPositionY(p->getPositionY() - 200 * dt);
+		p->setPositionY(p->getPositionY() - 350 * dt);
 	if (up == true)
-		p->setPositionY(p->getPositionY() + 200 * dt);
+		p->setPositionY(p->getPositionY() + 350 * dt);
 }
 
 Rect Player::getBox()
