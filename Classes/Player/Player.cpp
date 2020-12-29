@@ -1,5 +1,7 @@
 #include "Player.h"
 
+static Player* obj = 0;
+
 bool Player::init()
 {
 	left = false;
@@ -73,5 +75,13 @@ Rect Player::getBox()
 	Rect rt = p->getBoundingBox();
 	rt.origin += this->getPosition();
 	return rt;
+}
+
+Player* Player::getIns()
+{
+	if (obj == 0) {
+		obj = Player::create();
+	}
+	return obj;
 }
 

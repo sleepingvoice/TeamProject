@@ -15,5 +15,7 @@ public:
 
 	//플레이어 객체의 hitBox
 	Rect getBox();
+
+	static Player* getIns();
 };
 
