@@ -4,6 +4,7 @@ static Player* obj = 0;
 
 bool Player::init()
 {
+	hp = 100;
 	left = false;
 	right = false;
 	up = false;
@@ -13,6 +14,7 @@ bool Player::init()
     player->setPosition(Vec2(100, 360));
     this->addChild(player);
     player->setName("player");
+	player->setScale(0.5);
 
 	EventListenerKeyboard* km = EventListenerKeyboard::create();
 	km->onKeyPressed = CC_CALLBACK_2(Player::Press, this);
@@ -70,7 +72,7 @@ void Player::update(float dt)
 }
 
 Rect Player::getBox()
-{
+{//충돌 박스 보정
 	Sprite* p = (Sprite*)this->getChildByName("player");
 	Rect rt = p->getBoundingBox();
 	rt.origin += this->getPosition();
