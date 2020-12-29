@@ -1,7 +1,7 @@
-#include "m_Boss.h"
+#include "Boss.h"
 #include "m_bullet.h"
 
-bool m_Boss::init()
+bool Boss::init()
 {
     Sprite* Boss = Sprite::create("Boss1.png");
     this->addChild(Boss);
@@ -25,7 +25,7 @@ bool m_Boss::init()
     return true;
 }
 
-Rect m_Boss::GetBox()
+Rect Boss::GetBox()
 {
     Sprite* pSpr = (Sprite*)this->getChildByName("Boss");
     Rect rt = pSpr->getBoundingBox();
@@ -33,7 +33,7 @@ Rect m_Boss::GetBox()
     return rt;
 }
 
-void m_Boss::Damage()
+void Boss::Damage()
 {
     Hp--;
     if (Hp == 5)
@@ -46,7 +46,7 @@ void m_Boss::Damage()
     }
 }
 
-void m_Boss::update(float dt)
+void Boss::update(float dt)
 {
     Time += dt;
     if(Time >= 2.5f && Die != true)
@@ -106,7 +106,7 @@ void m_Boss::update(float dt)
     
 }
 
-void m_Boss::change()
+void Boss::change()
 {
     Sprite* pSpr = (Sprite*)this->getChildByTag(1);
     pSpr->setTexture("Boss2.png");
@@ -116,7 +116,7 @@ void m_Boss::change()
     dir = Vec2(-1, -1);
 }
 
-void m_Boss::pattern1()
+void Boss::pattern1()
 {
     m_bullet* b1 = m_bullet::create();
     this->getParent()->addChild(b1);
@@ -134,7 +134,7 @@ void m_Boss::pattern1()
     b3->setPosition(this->getPosition() + Vec2(-10, 0));
 }
 
-void m_Boss::pattern2()
+void Boss::pattern2()
 {
     m_bullet* b1 = m_bullet::create();
     this->getParent()->addChild(b1);
@@ -142,7 +142,7 @@ void m_Boss::pattern2()
     b1->dir = Vec2(-1, 0);
 }
 
-void m_Boss::dirMax()
+void Boss::dirMax()
 {
     if (dir.x > 1)
     {
