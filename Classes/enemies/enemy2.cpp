@@ -19,10 +19,10 @@ void enemy2::enemy2_Active(int y)
 //에너미 활성화 함수
 {
     this->setPosition(Vec2(1325, 600 - 160 * y));
-    /*y가 0 = 120
-    y가 1 = 280
-    y가 2 = 440
-    y가 3 = 600*/
+    /*y가 0 = 600
+    y가 1 = 440
+    y가 2 = 280
+    y가 3 = 120*/
 
     MoveBy* mby1 = MoveBy::create(1, Vec2(-325, 0));
     DelayTime* dt = DelayTime::create(10);
