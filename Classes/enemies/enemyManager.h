@@ -11,9 +11,9 @@ public:
 	bool init();
 
 	Vector<enemy1*> e1_vec;
-	//í˜„ì¬ í™”ë©´ì—ì„œ ì‚¬ìš©ì¤‘ì¸ ê°ì²´ë¥¼ ì €ì¥í•˜ëŠ” ë²¡í„°
+	//ÇöÀç È­¸é¿¡¼­ »ç¿ëÁßÀÎ °´Ã¼¸¦ ÀúÀåÇÏ´Â º¤ÅÍ
 	Vector<enemy1*> e1_vec_wait;
-	//ì•„ì§ ì‚¬ìš©í•˜ê¸° ì „ì¸ ê°ì²´ë¥¼ ì €ì¥í•˜ëŠ” ë²¡í„°
+	//¾ÆÁ÷ »ç¿ëÇÏ±â ÀüÀÎ °´Ã¼¸¦ ÀúÀåÇÏ´Â º¤ÅÍ
 
 	Vector<enemy2*> e2_vec;
 	Vector<enemy2*> e2_vec_wait;
@@ -21,10 +21,10 @@ public:
 	void update(float dt);
 
 	float e1_timer, e2_timer;
-	//ì—ë„ˆë¯¸1,2 ìƒì„± íƒ€ì´ë¨¸
+	//¿¡³Ê¹Ì1,2 »ı¼º Å¸ÀÌ¸Ó
 
 	int e2_y;
-	//ì—ë„ˆë¯¸2 yì¶• ì •í•˜ëŠ” int
+	//¿¡³Ê¹Ì2 yÃà Á¤ÇÏ´Â int
 
 	static enemyManager* getIns();
 

@@ -4,6 +4,7 @@ static Player* obj = 0;
 
 bool Player::init()
 {
+	isDamage = true;
 	hp = 100;
 	left = false;
 	right = false;
@@ -23,6 +24,16 @@ bool Player::init()
 	this->scheduleUpdate();
 
     return true;
+}
+
+void Player::player_Act()
+{
+	isDamage = true;
+}
+
+void Player::player_DisAct()
+{
+	isDamage = false;
 }
 
 void Player::Press(EventKeyboard::KeyCode key, Event* e)
@@ -76,6 +87,28 @@ Rect Player::getBox()
 	Rect rt = p->getBoundingBox();
 	rt.origin += this->getPosition();
 	return rt;
+}
+
+void Player::damage()
+{
+	if (hp > 0 && isDamage == true) {
+		hp--;
+
+		//충돌 후 빤짝임 효과를 줌
+		Sprite* p = (Sprite*)this->getChildByName("player");
+		Blink* bnk = Blink::create(3, 6);
+		DelayTime* dt = DelayTime::create(1);
+
+		CallFunc* dis = CallFunc::create(CC_CALLBACK_0(Player::player_DisAct, this));
+		CallFunc* act = CallFunc::create(CC_CALLBACK_0(Player::player_Act, this));
+
+		Sequence* seq = Sequence::create(dis, bnk, dt, act, 0);
+		p->runAction(seq);
+	}
+	else if (hp == 0) {
+		//엔딩씬으로 교체
+		//게임종료
+	}
 }
 
 Player* Player::getIns()

@@ -34,9 +34,9 @@ void enemyManager::update(float dt)
     //에너미1 생성
     {
         e1_timer += dt;
-        if (e1_timer >= 0.6f)
+        if (e1_timer >= 1)
         {
-            e1_timer -= 0.6f;
+            e1_timer -= 1;
             if (e1_vec_wait.size() > 0)
                 //벡터 안에 보관된 객체 중 가장 뒤에 있는 객체를 가져옴
             {

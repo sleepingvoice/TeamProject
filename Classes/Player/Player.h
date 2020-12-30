@@ -8,6 +8,10 @@ public:
 	CREATE_FUNC(Player);
 
 	int hp;
+	bool isDamage;//적 개체와 충돌상태확인변수
+
+	void player_Act();
+	void player_DisAct();
 
 	//플레이어 객체의 움직임 관리
 	void Press(EventKeyboard::KeyCode key, Event* e);
@@ -17,6 +21,9 @@ public:
 
 	//플레이어 객체의 hitBox
 	Rect getBox();
+
+	//플레이어 충돌함수
+	void damage();
 
 	static Player* getIns();
 };

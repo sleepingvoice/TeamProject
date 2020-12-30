@@ -2,7 +2,7 @@
 #include <cocos2d.h>
 USING_NS_CC;
 
-//ê¸¸ë§‰í•˜ê³  ì´ì•Œì˜ëŠ” ì—ë„ˆë¯¸
+//±æ¸·ÇÏ°í ÃÑ¾Ë½î´Â ¿¡³Ê¹Ì
 
 class enemy2:public Node
 {
@@ -10,7 +10,9 @@ public:
 	bool init();
 	CREATE_FUNC(enemy2);
 
-	void enemy2_Active(int y), enemy2_DisAct();
+	int hp = 5;
+
+	void enemy2_Active(int y), enemy2_DisAct(), damage();
 	Rect getBox();
 };
 

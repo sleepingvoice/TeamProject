@@ -2,15 +2,17 @@
 #include <cocos2d.h>
 USING_NS_CC;
 
-//ëœë¤í•œ y ìœ„ì¹˜ì—ì„œ ê·¸ì € ì™¼ìª½ìœ¼ë¡œ ì­‰ ê°€ëŠ” ì—ë„ˆë¯¸
+//·£´ıÇÑ y À§Ä¡¿¡¼­ ±×Àú ¿ŞÂÊÀ¸·Î Âß °¡´Â ¿¡³Ê¹Ì
 
 class enemy1:public Node
 {
 public:
-	bool init();
+	bool init(), target = false;
 	CREATE_FUNC(enemy1);
 
-	void enemy1_Active(), enemy1_DisAct();
+	void update(float dt), enemy1_Active(), enemy1_DisAct(), damage();
 	Rect getBox();
+
+	Vec2 dir;
 };
 

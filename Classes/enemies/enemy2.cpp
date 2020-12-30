@@ -2,10 +2,10 @@
 
 bool enemy2::init()
 {
-    /*í¬ì§€ì…˜1 1000, 600
-    í¬ì§€ì…˜2 1000, 440
-    í¬ì§€ì…˜3 1000, 280
-    í¬ì§€ì…˜4 1000, 120*/
+    /*Æ÷Áö¼Ç1 1000, 600
+    Æ÷Áö¼Ç2 1000, 440
+    Æ÷Áö¼Ç3 1000, 280
+    Æ÷Áö¼Ç4 1000, 120*/
 
     Sprite* en2 = Sprite::create("enemy2.png");
     this->addChild(en2);
@@ -16,13 +16,13 @@ bool enemy2::init()
 }
 
 void enemy2::enemy2_Active(int y)
-//ì—ë„ˆë¯¸ í™œì„±í™” í•¨ìˆ˜
+//¿¡³Ê¹Ì È°¼ºÈ­ ÇÔ¼ö
 {
     this->setPosition(Vec2(1325, 600 - 160 * y));
-    /*yê°€ 0 = 600
-    yê°€ 1 = 440
-    yê°€ 2 = 280
-    yê°€ 3 = 120*/
+    /*y°¡ 0 = 600
+    y°¡ 1 = 440
+    y°¡ 2 = 280
+    y°¡ 3 = 120*/
 
     MoveBy* mby1 = MoveBy::create(1, Vec2(-325, 0));
     DelayTime* dt = DelayTime::create(10);
@@ -35,14 +35,18 @@ void enemy2::enemy2_Active(int y)
 }
 
 void enemy2::enemy2_DisAct()
-//ì—ë„ˆë¯¸ ë¹„í™œì„±í™” í•¨ìˆ˜
+//¿¡³Ê¹Ì ºñÈ°¼ºÈ­ ÇÔ¼ö
 {
     this->stopAllActions();
     this->setVisible(false);
 }
 
+void enemy2::damage()
+{
+    this->setPositionY(785);
+}
+
 Rect enemy2::getBox()
-//ì¶©ëŒ ë°•ìŠ¤ ë³´ì • í•¨ìˆ˜
 {
     Sprite* en2 = (Sprite*)this->getChildByName("en2");
     Rect rt = en2->getBoundingBox();
