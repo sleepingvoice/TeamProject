@@ -7,12 +7,13 @@ USING_NS_CC;
 class enemy2:public Node
 {
 public:
-	bool init();
+	bool init(), hit;
 	CREATE_FUNC(enemy2);
 
-	int hp = 5;
+	int hp;
+	float spawn_eb;
 
-	void enemy2_Active(int y), enemy2_DisAct(), damage();
+	void update(float dt), enemy2_Active(int y), enemy2_DisAct(), damage(), invic();
 	Rect getBox();
 };
 

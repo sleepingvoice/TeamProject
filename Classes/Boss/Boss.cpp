@@ -1,5 +1,7 @@
 #include "Boss.h"
-#include "m_bullet.h"
+#include "laser/laser1.h"
+#include "bulletManager.h"
+#include "enemies/eBullet.h"
 
 bool Boss::init()
 {
@@ -8,6 +10,7 @@ bool Boss::init()
     Boss->setTag(1);
     Boss->setPositionY(-50);
     Boss->setScale(2);
+    Boss->setName("Boss");
 
     target = Vec2(1000, 200);
     dir = Vec2(-1, 1);
@@ -18,6 +21,7 @@ bool Boss::init()
     Next = false;
     Die = false;
     particle = false;
+    speed = 100;
 
     this->scheduleUpdate();
 
@@ -28,9 +32,11 @@ bool Boss::init()
 Rect Boss::GetBox()
 {
     Sprite* pSpr = (Sprite*)this->getChildByName("Boss");
-    Rect rt = pSpr->getBoundingBox();
-    rt.origin += this->getPosition();
-    return rt;
+    if (pSpr != NULL) {
+        Rect rt = pSpr->getBoundingBox();
+        rt.origin += this->getPosition();
+        return rt;
+    }
 }
 
 void Boss::Damage()
@@ -49,9 +55,11 @@ void Boss::Damage()
 void Boss::update(float dt)
 {
     Time += dt;
+    
     if(Time >= 2.5f && Die != true)
     {
-        this->setPosition(this->getPosition() + dir * dt * 300);
+        speed += dt * 80;
+        this->setPosition(this->getPosition() + dir * dt * speed);
         if (this->getPositionX() < 600) {
             dir += Vec2(2, 0);
         }
@@ -69,20 +77,6 @@ void Boss::update(float dt)
         }
         dirMax();
     }
-    shotTime += dt;
-    if (shotTime >= 1 && Die != true)
-    {
-        if (Next == false) 
-        {
-            pattern1();
-        }
-        else 
-        {
-            pattern2();
-        }
-        Damage();
-        shotTime -= 1;
-    }
 
     if (Die == true) {
         DeadTime += dt;
@@ -96,6 +90,7 @@ void Boss::update(float dt)
             par->runAction(seq);
             par->setPosition(this->getChildByTag(1)->getPosition());
             particle = true;
+            shotTime = -9999;
         }
 
         if(DeadTime > 5)
@@ -103,7 +98,13 @@ void Boss::update(float dt)
             this->removeFromParentAndCleanup(true);
         }
     }
-    
+    shotTime += dt;
+    if (shotTime >= 2)
+    {
+        shotTime -= 2;
+        pattern_1();
+        speed=speed / 2;
+    }
 }
 
 void Boss::change()
@@ -114,32 +115,6 @@ void Boss::change()
     Time = 1;
     shotTime = 0;
     dir = Vec2(-1, -1);
-}
-
-void Boss::pattern1()
-{
-    m_bullet* b1 = m_bullet::create();
-    this->getParent()->addChild(b1);
-    m_bullet* b2 = m_bullet::create();
-    this->getParent()->addChild(b2);
-    m_bullet* b3 = m_bullet::create();
-    this->getParent()->addChild(b3);
-
-    b1->dir = Vec2(-1, -0.5f);
-    b2->dir = Vec2(-1, 0);
-    b3->dir = Vec2(-1, 0.5f);
-
-    b1->setPosition(this->getPosition() + Vec2(-10, 0));
-    b2->setPosition(this->getPosition() + Vec2(-10, 0));
-    b3->setPosition(this->getPosition() + Vec2(-10, 0));
-}
-
-void Boss::pattern2()
-{
-    m_bullet* b1 = m_bullet::create();
-    this->getParent()->addChild(b1);
-    b1->setPosition(this->getPosition() + Vec2(-10, 0));
-    b1->dir = Vec2(-1, 0);
 }
 
 void Boss::dirMax()
@@ -161,3 +136,27 @@ void Boss::dirMax()
         dir.y = -1;
     }
 }
+
+void Boss::pattern_1()
+{
+    for (float i = -0.5f; i < 2; i=i+0.5f) {
+        if ((eBullet*)bulletManager::getIns()->b_e_vec_wait.size() > 0)
+        {
+            eBullet* e = (eBullet*)bulletManager::getIns()->b_e_vec_wait.back();
+            bulletManager::getIns()->b_e_vec.pushBack(e);
+            bulletManager::getIns()->b_e_vec_wait.eraseObject(e);
+            e->eb_Active(this->getPosition());
+            e->dir = Vec2(1, i);
+        }
+        else
+        {
+            eBullet* e = eBullet::create();
+            this->getParent()->addChild(e);
+            bulletManager::getIns()->b_e_vec.pushBack(e);
+            e->eb_Active(this->getPosition());
+            e->dir = Vec2(1, i);
+        }
+    }
+}
+
+

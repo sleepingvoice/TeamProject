@@ -3,7 +3,7 @@
 
 bool enemy1::init()
 {
-    Sprite* en1 = Sprite::create("enemy1.png");
+    Sprite* en1 = Sprite::create("ENEMY1.png");
     this->addChild(en1);
     en1->setName("en1");
 
@@ -16,15 +16,21 @@ bool enemy1::init()
 
 void enemy1::update(float dt)
 {
-    if (this->getPositionX() <= 1248 && target == false)
+    if (this->getPositionX() <= 1220 && target == false)
     {
         dir = Player::getIns()->getChildByName("player")->getPosition() - this->getPosition();
+        dir = dir.getNormalized();
         target = true;
     }
 
     if (target == true)
     {
-        this->setPosition(this->getPosition() + dir.getNormalized() * dt * 600);
+        this->setPosition(this->getPosition() + dir * dt * 600);
+
+        ang = atan2f(dir.x, dir.y);
+        ang = CC_RADIANS_TO_DEGREES(ang);
+        Sprite* spr = (Sprite*)this->getChildByName("en1");
+        spr->setRotation(ang + 90);
     }
     else
     {
@@ -48,6 +54,8 @@ void enemy1::enemy1_Active()
 void enemy1::enemy1_DisAct()
 //에너미 비활성화 함수
 {
+    Sprite* spr = (Sprite*)this->getChildByName("en1");
+    spr->setRotation(0);
     this->setVisible(false);
     this->unscheduleUpdate();
 }
@@ -55,7 +63,7 @@ void enemy1::enemy1_DisAct()
 void enemy1::damage()
 //에너미 데미지 받았을 때 처리
 {
-    this->setPositionX(-65);
+    this->setPositionX(-100);
 }
 
 Rect enemy1::getBox()

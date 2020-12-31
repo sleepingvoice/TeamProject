@@ -4,10 +4,10 @@ USING_NS_CC;
 class Player:public Node
 {
 public:
-	bool init();
-	CREATE_FUNC(Player);
+
 
 	int hp;
+	int speed;
 	bool isDamage;//적 개체와 충돌상태확인변수
 
 	void player_Act();
@@ -26,5 +26,11 @@ public:
 	void damage();
 
 	static Player* getIns();
+
+	void mouseDown(EventMouse* e);
+
+private:
+	bool init();
+	CREATE_FUNC(Player);	
 };
 

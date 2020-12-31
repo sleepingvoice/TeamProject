@@ -1,11 +1,14 @@
 #include "Player.h"
+//#include "Ui_hpicon.h"
+#include "player_shoot.h"
 
 static Player* obj = 0;
 
 bool Player::init()
 {
 	isDamage = true;
-	hp = 100;
+	hp = 3;
+	speed = 350;
 	left = false;
 	right = false;
 	up = false;
@@ -15,6 +18,9 @@ bool Player::init()
     player->setPosition(Vec2(100, 360));
     this->addChild(player);
     player->setName("player");
+
+	player_shoot* shoot = player_shoot::getIns();
+	this->addChild(shoot);
 
 	EventListenerKeyboard* km = EventListenerKeyboard::create();
 	km->onKeyPressed = CC_CALLBACK_2(Player::Press, this);
@@ -72,13 +78,13 @@ void Player::update(float dt)
 {
 	Sprite* p = (Sprite*)this->getChildByName("player");
 	if (left == true)
-		p->setPositionX(p->getPositionX() - 350 * dt);
+		p->setPositionX(p->getPositionX() - speed * dt);
 	else if (right == true)
-		p->setPositionX(p->getPositionX() + 350 * dt);
+		p->setPositionX(p->getPositionX() + speed * dt);
 	if (down == true)
-		p->setPositionY(p->getPositionY() - 350 * dt);
+		p->setPositionY(p->getPositionY() - speed * dt);
 	if (up == true)
-		p->setPositionY(p->getPositionY() + 350 * dt);
+		p->setPositionY(p->getPositionY() + speed * dt);
 }
 
 Rect Player::getBox()
@@ -97,7 +103,7 @@ void Player::damage()
 		//Ãæµ¹ ÈÄ ºþÂ¦ÀÓ È¿°ú¸¦ ÁÜ
 		Sprite* p = (Sprite*)this->getChildByName("player");
 		Blink* bnk = Blink::create(3, 6);
-		DelayTime* dt = DelayTime::create(1);
+		DelayTime* dt = DelayTime::create(0.8);
 
 		CallFunc* dis = CallFunc::create(CC_CALLBACK_0(Player::player_DisAct, this));
 		CallFunc* act = CallFunc::create(CC_CALLBACK_0(Player::player_Act, this));

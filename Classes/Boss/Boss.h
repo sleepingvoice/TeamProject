@@ -7,9 +7,10 @@ public:
 	bool init();
 	CREATE_FUNC(Boss);
 
+	int speed;
 	int Hp;
 	float Time = 0;
-	float shotTime = -1;
+	float shotTime =0;
 	Vec2 dir;
 	Vec2 target;
 	bool Next;
@@ -22,8 +23,7 @@ public:
 	void Damage();
 	void update(float dt);
 	void change();
-	void pattern1();
-	void pattern2();
 	void dirMax();
+	void pattern_1();
 };
 

@@ -14,5 +14,7 @@ public:
 	Rect getBox();
 
 	Vec2 dir;
+
+	float ang = 0;
 };
 

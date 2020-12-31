@@ -1,20 +1,53 @@
 #include "s_GameScene.h"
-#include "Boss/m_Boss.h"
+#include "Boss/Boss.h"
 #include "Player/Player.h"
 #include "enemies/enemyManager.h"
+#include "hitManager.h"
+#include "bulletManager.h"
+#include "BackGround.h"
 bool s_GameScene::init()
 {
-    m_Boss* boss=m_Boss::create();
-    this->addChild(boss);
-    boss->setPosition(1300, 200);
 
-    Player* play = Player::create();
+    Player* play = Player::getIns();
     this->addChild(play);
-    play->setPosition(640, 360);
+    play->setName("Player");
 
     enemyManager* em = enemyManager::getIns();
     this->addChild(em);
+    
+    
+    BackGround* bg = BackGround::create();
+    this->addChild(bg);
+    bg->setAnchorPoint(Vec2(0, 0));
+    bg->setZOrder(-1);
+    
+    hitManager* hit = hitManager::getIns();
+    this->addChild(hit);
+   
+    bulletManager* bullet = bulletManager::getIns();
+    this->addChild(bullet);
 
+ 
 
+    bossTrue = false;
+
+    this->scheduleUpdate();
+
+    
     return true;
+}
+
+void s_GameScene::update(float dt)
+{
+    Time += dt;
+    if (Time >= 10 && bossTrue == false)
+    {
+        enemyManager::getIns()->eM_DisAct();
+        Boss* boss = Boss::create();
+        this->addChild(boss);
+        boss->setName("Boss");
+        boss->setPosition(Vec2(1300,200));
+        bossTrue = true;
+    }
+    
 }
