@@ -1,6 +1,6 @@
 #include "Player.h"
-//#include "Ui_hpicon.h"
 #include "player_shoot.h"
+#include "Scene/s_GameoverScene.h"
 
 static Player* obj = 0;
 
@@ -111,9 +111,9 @@ void Player::damage()
 		Sequence* seq = Sequence::create(dis, bnk, dt, act, 0);
 		p->runAction(seq);
 	}
-	else if (hp == 0) {
-		//엔딩씬으로 교체
-		//게임종료
+	else if (hp <= 0) {
+		s_GameoverScene* sc = s_GameoverScene::create();
+		Director::getInstance()->replaceScene(sc);
 	}
 }
 

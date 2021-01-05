@@ -9,8 +9,11 @@ public:
 	Vector<Node*> b_e_vec;
 	Vector<Node*> b_e_vec_wait;
 
-	Vector<Node*> b_p_vec;
-	Vector<Node*> b_p_vec_wait;
+	Vector<Node*> b_p_vec1;
+	Vector<Node*> b_p_vec1_wait;
+
+	Vector<Node*> b_p_vec2;
+	Vector<Node*> b_p_vec2_wait;
 
 	void update(float dt);
 

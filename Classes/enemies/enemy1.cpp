@@ -16,7 +16,7 @@ bool enemy1::init()
 
 void enemy1::update(float dt)
 {
-    if (this->getPositionX() <= 1220 && target == false)
+    if (this->getPositionX() <= 1220 && target == false&&this->getPositionX()>=0)
     {
         dir = Player::getIns()->getChildByName("player")->getPosition() - this->getPosition();
         dir = dir.getNormalized();
@@ -63,7 +63,7 @@ void enemy1::enemy1_DisAct()
 void enemy1::damage()
 //에너미 데미지 받았을 때 처리
 {
-    this->setPositionX(-100);
+    this->setPositionX(-500);
 }
 
 Rect enemy1::getBox()

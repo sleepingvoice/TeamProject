@@ -6,6 +6,7 @@ bool BackGround::init()
     this->addChild(bg_stop);
     bg_stop->setZOrder(-4);
     bg_stop->setAnchorPoint(Vec2(0, 0));
+    bg_stop->setContentSize(Size(1280, 720));
    
     Sprite* bg_move1 = Sprite::create("BKG_move_1.png");
     Sprite* bg_move2 = Sprite::create("BKG_move_2.png");
@@ -76,7 +77,7 @@ bool BackGround::init()
     bg_move3_3->setTag(9);
 
 
-    bg_stop->setContentSize(Size(1280, 720));
+    
 
 
     speed1 = 300;

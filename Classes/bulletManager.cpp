@@ -1,6 +1,7 @@
 #include "bulletManager.h"
 #include "enemies/eBullet.h"
 #include "laser/laser1.h"
+#include "laser/laser2.h"
 
 static bulletManager* obj = 0;
 
@@ -21,17 +22,29 @@ bool bulletManager::init()
 
 void bulletManager::update(float dt)
 {
-    for (Node* laser : b_p_vec)
+    for (Node* laser : b_p_vec1)
     {
         laser1* l = (laser1*)laser;
         if (l->getPositionX() > 1300) {
-            b_p_vec_wait.pushBack((Node*)l);
-            b_p_vec.eraseObject(l);
+            b_p_vec1_wait.pushBack((Node*)l);
+            b_p_vec1.eraseObject(l);
             l->laser1_DisAct();
             return;
         }
     }
-    //饭捞历 拳搁观 贸府
+    //饭捞历1 拳搁观 贸府
+    for (Node* laser : b_p_vec2)
+    {
+        laser2* l = (laser2*)laser;
+        if (l->getPositionX() > 1300) {
+            b_p_vec2_wait.pushBack((Node*)l);
+            b_p_vec2.eraseObject(l);
+            l->laser2_DisAct();
+            return;
+        }
+    }
+    //饭捞历2 拳搁观 贸府
+
     for (Node* Bullet : b_e_vec)
     {
         eBullet* e = (eBullet*)Bullet;
@@ -41,7 +54,6 @@ void bulletManager::update(float dt)
             e->eb_DisAct();
             
             return;
-            
         }
     }
     //阂复 拳搁观 贸府

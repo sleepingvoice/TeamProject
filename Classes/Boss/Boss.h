@@ -17,6 +17,7 @@ public:
 	bool Die;
 	bool particle;
 	float DeadTime = 0;
+	int now_speed;
 
 
 	Rect GetBox();
@@ -25,5 +26,6 @@ public:
 	void change();
 	void dirMax();
 	void pattern_1();
+	void pattern_2();
 };
 

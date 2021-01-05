@@ -8,7 +8,6 @@ public:
 	CREATE_FUNC(player_shoot);
 
 	void mouseDown(EventMouse* e);
-	void mouseUp(EventMouse* e);
 
 	static player_shoot* getIns();
 };

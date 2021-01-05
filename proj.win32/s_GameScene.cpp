@@ -5,6 +5,7 @@
 #include "hitManager.h"
 #include "bulletManager.h"
 #include "BackGround.h"
+#include "uiManager.h"
 bool s_GameScene::init()
 {
 
@@ -27,7 +28,8 @@ bool s_GameScene::init()
     bulletManager* bullet = bulletManager::getIns();
     this->addChild(bullet);
 
- 
+    uiManager* ui = uiManager::create();
+    this->addChild(ui);
 
     bossTrue = false;
 
@@ -40,7 +42,7 @@ bool s_GameScene::init()
 void s_GameScene::update(float dt)
 {
     Time += dt;
-    if (Time >= 10 && bossTrue == false)
+    if (Time >= 20 && bossTrue == false)
     {
         enemyManager::getIns()->eM_DisAct();
         Boss* boss = Boss::create();

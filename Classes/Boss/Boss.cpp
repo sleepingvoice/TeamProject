@@ -2,10 +2,11 @@
 #include "laser/laser1.h"
 #include "bulletManager.h"
 #include "enemies/eBullet.h"
+#include "Scene/s_ClearScene.h"
 
 bool Boss::init()
 {
-    Sprite* Boss = Sprite::create("Boss1.png");
+    Sprite* Boss = Sprite::create("Boss.png");
     this->addChild(Boss);
     Boss->setTag(1);
     Boss->setPositionY(-50);
@@ -95,26 +96,34 @@ void Boss::update(float dt)
 
         if(DeadTime > 5)
         {
+            s_ClearScene* sc = s_ClearScene::create();
+            Director::getInstance()->replaceScene(sc);
             this->removeFromParentAndCleanup(true);
         }
     }
     shotTime += dt;
     if (shotTime >= 2)
     {
+        now_speed = speed;
         shotTime -= 2;
         pattern_1();
-        speed=speed / 2;
+        speed=0;
+    }
+    if (shotTime == 0.5f)
+    {
+        speed = now_speed;
     }
 }
 
 void Boss::change()
 {
     Sprite* pSpr = (Sprite*)this->getChildByTag(1);
-    pSpr->setTexture("Boss2.png");
+    pSpr->setTexture("Boss_2.png");
     Next = true;
     Time = 1;
     shotTime = 0;
     dir = Vec2(-1, -1);
+    speed = speed * 2;
 }
 
 void Boss::dirMax()
@@ -139,6 +148,7 @@ void Boss::dirMax()
 
 void Boss::pattern_1()
 {
+    
     for (float i = -0.5f; i < 2; i=i+0.5f) {
         if ((eBullet*)bulletManager::getIns()->b_e_vec_wait.size() > 0)
         {
@@ -157,6 +167,10 @@ void Boss::pattern_1()
             e->dir = Vec2(1, i);
         }
     }
+}
+
+void Boss::pattern_2()
+{
 }
 
 

@@ -1,6 +1,9 @@
 #include "hitManager.h"
 #include "Boss/Boss.h"
 #include "laser/laser1.h"
+#include "laser/laser2.h"
+#include "ui/Ui_hpicon.h"
+#include "ui/Ui_Score.h"
 
 static hitManager* obj = 0;
 
@@ -23,6 +26,7 @@ void hitManager::Playerenemy()
             Rect r2 = e->getBox();
             if (r1.intersectsRect(r2) == true)
             {
+                Ui_hpicon::getIns()->damage();
                 play->damage();
                 break;
             }
@@ -37,6 +41,7 @@ void hitManager::Playerenemy()
             Rect r2 = e->getBox();
             if (r1.intersectsRect(r2) == true)
             {
+                Ui_hpicon::getIns()->damage();
                 play->damage();
                 break;
             }
@@ -54,6 +59,7 @@ void hitManager::Playerboss()
         Rect r2 = boss->GetBox();
         if (r1.intersectsRect(r2) == true)
         {
+            Ui_hpicon::getIns()->damage();
             play->damage();
         }
     }
@@ -70,6 +76,7 @@ void hitManager::PlayerBullet()
             Rect r2 = bul->getBox();
             if (r1.intersectsRect(r2) == true)
             {
+                Ui_hpicon::getIns()->damage();
                 play->damage();
                 bul->damage();
                 break;
@@ -80,9 +87,9 @@ void hitManager::PlayerBullet()
 
 void hitManager::Enemylaser()
 {
-    if (bullet->b_p_vec.empty() != true)
+    if (bullet->b_p_vec1.empty() != true)
     {
-        for (Node* b : bullet->b_p_vec)
+        for (Node* b : bullet->b_p_vec1)
         {
             if (em->e1_vec.empty() != true)
             {
@@ -94,6 +101,8 @@ void hitManager::Enemylaser()
                     Rect r2 = e->getBox();
                     if (r1.intersectsRect(r2) == true)
                     {
+                        //enemy1의 점수는 30점
+                        Ui_Score::getIns()->scoreUp(30);
                         Pbul->setPosition(Vec2(9999, 9999));
                         e->damage();
                     }
@@ -109,6 +118,48 @@ void hitManager::Enemylaser()
                     Rect r2 = e->getBox();
                     if (r1.intersectsRect(r2) == true)
                     {
+                        //enemy2의 점수는 50점
+                        Ui_Score::getIns()->scoreUp(50);
+                        Pbul->setPosition(Vec2(9999, 9999));
+                        e->damage();
+                    }
+                }
+            }
+        }
+    }
+    if (bullet->b_p_vec2.empty() != true)
+    {
+        for (Node* b : bullet->b_p_vec2)
+        {
+            if (em->e1_vec.empty() != true)
+            {
+                for (Node* p : em->e1_vec)
+                {
+                    laser2* Pbul = (laser2*)b;
+                    enemy1* e = (enemy1*)p;
+                    Rect r1 = Pbul->getBox();
+                    Rect r2 = e->getBox();
+                    if (r1.intersectsRect(r2) == true)
+                    {
+                        //enemy1의 점수는 30점
+                        Ui_Score::getIns()->scoreUp(30);
+                        Pbul->setPosition(Vec2(9999, 9999));
+                        e->damage();
+                    }
+                }
+            }
+            if (em->e2_vec.empty() != true)
+            {
+                for (Node* p : em->e2_vec)
+                {
+                    laser2* Pbul = (laser2*)b;
+                    enemy2* e = (enemy2*)p;
+                    Rect r1 = Pbul->getBox();
+                    Rect r2 = e->getBox();
+                    if (r1.intersectsRect(r2) == true)
+                    {
+                        //enemy2의 점수는 50점
+                        Ui_Score::getIns()->scoreUp(50);
                         Pbul->setPosition(Vec2(9999, 9999));
                         e->damage();
                     }
@@ -120,11 +171,28 @@ void hitManager::Enemylaser()
 
 void hitManager::Bosslaser()
 {
-    if (bullet->b_p_vec.empty() != true)
+    if (bullet->b_p_vec1.empty() != true)
     {
-        for (Node* b : bullet->b_p_vec)
+        for (Node* b : bullet->b_p_vec1)
         {
             laser1* Pbul = (laser1*)b;
+            Boss* boss = (Boss*)this->getParent()->getChildByName("Boss");
+            if (boss != NULL) {
+                Rect r1 = Pbul->getBox();
+                Rect r2 = boss->GetBox();
+                if (r1.intersectsRect(r2) == true)
+                {
+                    boss->Damage();
+                    Pbul->setPositionX(9999);
+                }
+            }
+        }
+    }
+    if (bullet->b_p_vec2.empty() != true)
+    {
+        for (Node* b : bullet->b_p_vec2)
+        {
+            laser2* Pbul = (laser2*)b;
             Boss* boss = (Boss*)this->getParent()->getChildByName("Boss");
             if (boss != NULL) {
                 Rect r1 = Pbul->getBox();
