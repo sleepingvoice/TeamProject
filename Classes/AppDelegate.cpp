@@ -100,6 +100,11 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // if the frame's height is larger than the height of medium size.
 
     register_all_packages();
+ 
+    UserDefault::getInstance()->setBoolForKey("mute", false);
+    UserDefault::getInstance()->setIntegerForKey("bgm_tag", 0);
+    UserDefault::getInstance()->setFloatForKey("bgm_vol", 1);
+    UserDefault::getInstance()->setFloatForKey("sfx_vol", 1);
 
     // create a scene. it's an autorelease object
     auto scene = s_StartScene::create();
