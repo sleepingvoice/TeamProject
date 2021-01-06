@@ -1,5 +1,6 @@
 #include "enemy1.h"
 #include "../Player/Player.h"
+#include "soundManager.h"
 
 bool enemy1::init()
 {
@@ -63,6 +64,7 @@ void enemy1::enemy1_DisAct()
 void enemy1::damage()
 //에너미 데미지 받았을 때 처리
 {
+    soundManager::getIns()->sfx(1);
     this->setPositionX(-500);
 }
 

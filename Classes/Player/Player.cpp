@@ -1,6 +1,7 @@
 #include "Player.h"
 #include "player_shoot.h"
 #include "Scene/s_GameOverScene.h"
+#include "soundManager.h"
 
 static Player* obj = 0;
 
@@ -13,7 +14,6 @@ bool Player::init()
 	right = false;
 	up = false;
 	down = false;
-
 
     Sprite* player = Sprite::create("shot_1.png");
     this->addChild(player);
@@ -101,6 +101,7 @@ void Player::update(float dt)
 		play->setPositionY(play->getPositionY() + speed * dt);
 	}
 
+	
 	out->setPosition(play->getPosition());
 }
 
@@ -116,7 +117,7 @@ void Player::damage()
 {
 	if (hp > 0 && isDamage == true) {
 		hp--;
-
+		soundManager::getIns()->sfx(4);
 		//Ãæµ¹ ÈÄ ºþÂ¦ÀÓ È¿°ú¸¦ ÁÜ
 		Sprite* p = (Sprite*)this->getChildByName("player");
 		Blink* bnk = Blink::create(3, 6);

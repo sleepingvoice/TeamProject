@@ -1,6 +1,7 @@
 #include "enemy2.h"
 #include "../enemies/enemyManager.h"
 #include "../bulletManager.h"
+#include "soundManager.h"
 
 bool enemy2::init()
 {
@@ -11,7 +12,6 @@ bool enemy2::init()
 
     hp = 0;
     spawn_eb = 0;
-    hit = false;
 
     Sprite* en2 = Sprite::create("enemy2.png");
     this->addChild(en2);
@@ -92,10 +92,14 @@ void enemy2::damage()
     hp--;
     if (hp <= 0)
     {
+        soundManager::getIns()->sfx(1);
         this->setPositionY(785);
     }
+    else
+    {
+        soundManager::getIns()->sfx(0);
+    }
 }
-
 
 Rect enemy2::getBox()
 {

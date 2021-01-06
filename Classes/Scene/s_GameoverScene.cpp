@@ -1,4 +1,5 @@
-#include "s_GameoverScene.h"
+#include "s_GameScene.h"
+#include "s_GameOverScene.h"
 #include "s_StartScene.h"
 #include "soundManager.h"
 
@@ -56,11 +57,12 @@ void s_GameoverScene::onKeyPress(EventKeyboard::KeyCode key, Event* e)
         soundManager::getIns()->stopA();
         if (nowBlk == true)
         {
-            exit(0);
+            s_StartScene* sc = s_StartScene::create();
+            Director::getInstance()->replaceScene(sc);
         }
         else
         {
-            s_StartScene* sc = s_StartScene::create();
+            s_GameScene* sc = s_GameScene::create();
             Director::getInstance()->replaceScene(sc);
         }
     }

@@ -8,7 +8,7 @@ bool Ui_Score::init()
 
     Label* score = Label::createWithTTF("00000", "fonts/Recipekorea_FONT.ttf", 50);
     this->addChild(score);
-    score->setPosition(Vec2(1260, 670));
+    score->setPosition(Vec2(1220, 670));
     score->setAnchorPoint(Vec2(1, 0.5));
     score->setName("score");
 
