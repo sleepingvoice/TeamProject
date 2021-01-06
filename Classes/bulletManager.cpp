@@ -17,7 +17,7 @@ bool bulletManager::init()
 
     this->scheduleUpdate();
 
-	return true;
+    return true;
 }
 
 void bulletManager::update(float dt)
@@ -54,10 +54,46 @@ void bulletManager::update(float dt)
             b_e_vec_wait.pushBack((Node*)e);
             b_e_vec.eraseObject(e);
             e->eb_DisAct();
+
             return;
         }
     }
     //불릿 화면밖 처리
+}
+
+void bulletManager::reset()
+{
+    for (Node* e : b_e_vec) {
+        e->removeFromParentAndCleanup(true);
+        //b_e_vec_wait.pushBack(e);
+        //e->setPosition(Vec2(999, 999));
+    }
+    for (Node* e : b_p_vec1) {
+        e->removeFromParentAndCleanup(true);
+        //b_p_vec1_wait.pushBack(e);
+        //e->setPosition(Vec2(999, 999));
+    }
+    for (Node* e : b_p_vec2) {
+        e->removeFromParentAndCleanup(true);
+        //b_p_vec2_wait.pushBack(e);
+        //e->setPosition(Vec2(999, 999));
+    }
+    for (Node* e : b_p_vec1_wait) {
+        e->removeFromParentAndCleanup(true);
+    }
+    for (Node* e : b_p_vec2_wait) {
+        e->removeFromParentAndCleanup(true);
+    }
+    for (Node* e : b_e_vec_wait) {
+        e->removeFromParentAndCleanup(true);
+    }
+
+    b_p_vec2.clear();
+    b_e_vec.clear();
+    b_p_vec1.clear();
+    b_p_vec1_wait.clear();
+    b_p_vec2_wait.clear();
+    b_e_vec_wait.clear();
 }
 
 bulletManager* bulletManager::getIns()
@@ -65,6 +101,7 @@ bulletManager* bulletManager::getIns()
     if (obj == 0)
     {
         obj = bulletManager::create();
+        obj->retain();
     }
     return obj;
 }

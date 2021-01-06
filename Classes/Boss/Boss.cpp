@@ -29,7 +29,7 @@ bool Boss::init()
 
     this->scheduleUpdate();
 
-    Hp = 20;
+    Hp = 250;
     return true;
 }
 
@@ -47,7 +47,7 @@ void Boss::Damage()
 {
     Hp--;
     soundManager::getIns()->sfx(0);
-    if (Hp == 10)
+    if (Hp == 150)
     {
         change();
     }
@@ -109,17 +109,19 @@ void Boss::update(float dt)
     if (shotTime >= 2)
     {
         now_speed = 0;
-        shotTime -= 2;
+        
         
         if (Next == true && bulletNext == false) {
             pattern_2();
             bulletNext = true;
+            shotTime -= 2;
         }
 
         else if (Next == false||bulletNext == true)
         {
             pattern_1();
             bulletNext = false;
+            shotTime -= 1;
         }
     }
     if (shotTime >= 0.5f)
