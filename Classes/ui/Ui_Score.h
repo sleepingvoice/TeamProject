@@ -7,7 +7,9 @@ public:
 	bool init();
 
 	int finalScore;
+
 	void scoreUp(int score);
+	void update(float dt);
 
 	CREATE_FUNC(Ui_Score);
 

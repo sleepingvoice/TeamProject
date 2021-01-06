@@ -12,6 +12,8 @@ bool Ui_Score::init()
     score->setAnchorPoint(Vec2(1, 0.5));
     score->setName("score");
 
+    this->scheduleUpdate();
+
     return true;
 }
 
@@ -23,6 +25,25 @@ void Ui_Score::scoreUp(int score)
     s->setString(str);
 }
 
+void Ui_Score::update(float dt)
+{
+    if (finalScore > 3000) {
+        if (this->getChildByName("s") == NULL) {
+            Label* s = Label::createWithTTF("Guided missile unlock!!", "fonts/Recipekorea_FONT.ttf", 50);
+            this->addChild(s);
+            s->setPosition(Vec2(640, 360));
+            s->setTextColor(Color4B::YELLOW);
+            s->setName("s");
+
+            DelayTime* dt = DelayTime::create(1);
+            FadeOut* out = FadeOut::create(1);
+            //RemoveSelf* self = RemoveSelf::create(true);
+            Sequence* seq = Sequence::create(dt, out, 0);
+            s->runAction(seq);
+        }
+    }
+}
+
 void Ui_Score::reset()
 {
     finalScore = 0;
@@ -30,6 +51,9 @@ void Ui_Score::reset()
     Label* s = (Label*)this->getChildByName("score");
     std::string str = StringUtils::format("00000");
     s->setString(str);
+
+    this->unscheduleUpdate();
+    this->scheduleUpdate();
 }
 
 Ui_Score* Ui_Score::getIns()

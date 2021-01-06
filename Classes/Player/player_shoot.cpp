@@ -2,6 +2,7 @@
 #include "../bulletManager.h"
 #include "../laser/laser1.h"
 #include "../laser/laser2.h"
+#include "../ui/Ui_Score.h"
 
 static player_shoot* obj = NULL;
 
@@ -31,20 +32,20 @@ void player_shoot::mouseDown(EventMouse* e)
             p->laser1_Active();
             p->setZOrder(3);
         }
-    }
-    if (em->getMouseButton() == EventMouse::MouseButton::BUTTON_RIGHT) {
-        if ((laser2*)bulletManager::getIns()->b_p_vec2_wait.size() > 0) {
-            laser2* p = (laser2*)bulletManager::getIns()->b_p_vec2_wait.back();
-            bulletManager::getIns()->b_p_vec2.pushBack(p);
-            bulletManager::getIns()->b_p_vec2_wait.eraseObject(p);
-            p->laser2_Active();
-        }
-        else {
-            laser2* p = laser2::create();
-            this->addChild(p);
-            bulletManager::getIns()->b_p_vec2.pushBack(p);
-            p->laser2_Active();
-            p->setZOrder(3);
+        if (Ui_Score::getIns()->finalScore > 3000) {
+            if ((laser2*)bulletManager::getIns()->b_p_vec2_wait.size() > 0) {
+                laser2* p = (laser2*)bulletManager::getIns()->b_p_vec2_wait.back();
+                bulletManager::getIns()->b_p_vec2.pushBack(p);
+                bulletManager::getIns()->b_p_vec2_wait.eraseObject(p);
+                p->laser2_Active();
+            }
+            else {
+                laser2* p = laser2::create();
+                this->addChild(p);
+                bulletManager::getIns()->b_p_vec2.pushBack(p);
+                p->laser2_Active();
+                p->setZOrder(3);
+            }
         }
     }
 }

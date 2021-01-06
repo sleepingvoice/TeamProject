@@ -30,7 +30,7 @@ void laser2::update(float dt)
 			if (p->getPositionX() < this->getPositionX()) {
 				continue;
 			}
-			if (dis < 500) {
+			if (dis < 200) {
 				if (target == NULL) {
 					if(p->getPositionX()>150)
 					target = p;
@@ -45,7 +45,7 @@ void laser2::update(float dt)
 			if (p->getPositionX() < this->getPositionX()) {
 				continue;
 			}
-			if (dis < 500) {
+			if (dis < 200) {
 				if (target == NULL) {
 					target = p;
 				}
@@ -88,7 +88,7 @@ void laser2::update(float dt)
 void laser2::laser2_Active()
 {
     this->setPositionX(Player::getIns()->getChildByName("player")->getPositionX() + 40);
-    this->setPositionY(Player::getIns()->getChildByName("player")->getPositionY());
+    this->setPositionY(Player::getIns()->getChildByName("player")->getPositionY()-20);
 
     this->setVisible(true);
 

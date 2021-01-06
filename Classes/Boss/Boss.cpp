@@ -187,13 +187,14 @@ void Boss::pattern_1()
 void Boss::pattern_2()
 {
     Player* play = Player::getIns();
+    Sprite* p=(Sprite*)play->getChildByName("player");
     if ((eBullet*)bulletManager::getIns()->b_e_vec_wait.size() > 0)
     {
         eBullet* e = (eBullet*)bulletManager::getIns()->b_e_vec_wait.back();
         bulletManager::getIns()->b_e_vec.pushBack(e);
         bulletManager::getIns()->b_e_vec_wait.eraseObject(e);
         e->eb_Active(this->getPosition());
-        Vec2 direct = e->getPosition() - play->getPosition();
+        Vec2 direct = e->getPosition() - p->getPosition();
         direct = direct.getNormalized();
         e->dir = direct;
         e->speed = 500;
@@ -205,7 +206,7 @@ void Boss::pattern_2()
         this->getParent()->addChild(e);
         bulletManager::getIns()->b_e_vec.pushBack(e);
         e->eb_Active(this->getPosition());
-        Vec2 direct = e->getPosition() - play->getPosition();
+        Vec2 direct = e->getPosition() - p->getPosition();
         direct = direct.getNormalized();
         e->dir = direct;
         e->speed = 500;

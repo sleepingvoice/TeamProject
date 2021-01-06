@@ -14,9 +14,18 @@ bool Player::init()
 	up = false;
 	down = false;
 
-    Sprite* player = Sprite::create("playertest.png");
+
+    Sprite* player = Sprite::create("shot_1.png");
     this->addChild(player);
     player->setName("player");
+	player->setPosition(Vec2(100, 360));
+	player->setZOrder(0);
+
+	Sprite* playout = Sprite::create("PLAYER_back.png");
+	playout->setZOrder(1);
+	this->addChild(playout);
+	playout->setName("out");
+	playout->setScale(0.7f);
 
 	player_shoot* shoot = player_shoot::getIns();
 	this->addChild(shoot);
@@ -75,18 +84,24 @@ void Player::Release(EventKeyboard::KeyCode key, Event* e)
 
 void Player::update(float dt)
 {
-	if (this->getPositionX() > 10&& left == true) {
-		this->setPositionX(this->getPositionX() - speed * dt);
+	Sprite* out = (Sprite*)getChildByName("out");
+	Sprite* play = (Sprite*)getChildByName("player");
+	if (play->getPositionX() > 10&& left == true) {
+		play->setPositionX(play->getPositionX() - speed * dt);
+		out->setTexture("PLAYER_back.png");
 	}
-	if(this->getPositionX() <1270&& right == true){
-		this->setPositionX(this->getPositionX() + speed * dt);
+	if(play->getPositionX() <1270&& right == true){
+		play->setPositionX(play->getPositionX() + speed * dt);
+		out->setTexture("PLAYER_front.png");
 	}
-	if (this->getPositionY() > 10 && down == true) {
-		this->setPositionY(this->getPositionY() - speed * dt);
+	if (play->getPositionY() > 10 && down == true) {
+		play->setPositionY(play->getPositionY() - speed * dt);
 	}
-	if (this->getPositionY() < 710 && up == true) {
-		this->setPositionY(this->getPositionY() + speed * dt);
+	if (play->getPositionY() < 710 && up == true) {
+		play->setPositionY(play->getPositionY() + speed * dt);
 	}
+
+	out->setPosition(play->getPosition());
 }
 
 Rect Player::getBox()
@@ -111,6 +126,10 @@ void Player::damage()
 
 		Sequence* seq = Sequence::create(dis, bnk, act, 0);
 		p->runAction(seq);
+
+		Sprite* out = (Sprite*)getChildByName("out");
+		bnk = Blink::create(3, 6);
+		out->runAction(bnk);
 	}
 	else if (hp <= 0) {
 		s_GameoverScene* sc = s_GameoverScene::create();
@@ -130,6 +149,7 @@ void Player::reset()
 	right = false;
 	up = false;
 	down = false;
+	p->setPosition(Vec2(100, 360));
 
 	this->scheduleUpdate();
 }

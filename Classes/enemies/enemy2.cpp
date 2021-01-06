@@ -89,31 +89,13 @@ void enemy2::enemy2_DisAct()
 
 void enemy2::damage()
 {
-    if (hit == false)
+    hp--;
+    if (hp <= 0)
     {
-        hp--;
-        if (hp <= 0)
-        {
-            this->setPositionY(785);
-        }
-        else
-        {
-            hit = true;
-
-            Blink* b = Blink::create(0.5f, 1);
-            CallFunc* cf = CallFunc::create(CC_CALLBACK_0(enemy2::invic, this));
-            Sequence* seq = Sequence::create(b, cf, 0);
-
-            Sprite* en2 = (Sprite*)this->getChildByName("en2");
-            en2->runAction(seq);
-        }
+        this->setPositionY(785);
     }
 }
 
-void enemy2::invic()
-{
-    hit = false;
-}
 
 Rect enemy2::getBox()
 {
