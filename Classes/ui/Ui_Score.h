@@ -10,6 +10,8 @@ public:
 	void scoreUp(int score);
 
 	CREATE_FUNC(Ui_Score);
+
+	void reset();
 	
 	static Ui_Score* getIns();
 };

@@ -9,11 +9,11 @@ static laser2* obj = 0;
 
 bool laser2::init()
 {
-    Sprite* laser = Sprite::create("shot_2.png");
+    Sprite* laser = Sprite::create("BULLET.png");
     this->addChild(laser);
     laser->setName("laser");
-    laser2_DisAct();
-
+	laser2_DisAct();
+	dir = Vec2(1, 0);
 	target == NULL;
 
     return true;
@@ -65,14 +65,15 @@ void laser2::update(float dt)
 	
 
 	if (target != NULL) {
-		if (target->getPositionX() <= 0)
+		if (target->getPositionX() <= this->getPositionX()+100)
 		{
 			target = NULL;
-			return;
 		}
-		Vec2 finish = target->getPosition();
-		Vec2 start = this->getPosition();
-		dir = finish - start;
+		else {
+			Vec2 finish = target->getPosition();
+			Vec2 start = this->getPosition();
+			dir = finish - start;
+		}
 	}
 	else {
 		Vec2 finish = this->getPosition() + Vec2(1500, 0);

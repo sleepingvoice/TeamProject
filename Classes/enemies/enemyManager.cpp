@@ -126,28 +126,35 @@ void enemyManager::eM_DisAct()
 
     for (enemy1* e : e1_vec)
     {
-        e->removeFromParentAndCleanup(true);
+        e1_vec_wait.pushBack(e);
+        e->setPosition(Vec2(999, 999));
+        e->unscheduleUpdate();
+        e->enemy1_DisAct();
     }
-    for (enemy1* e : e1_vec_wait)
-    {
-        e->removeFromParentAndCleanup(true);
-    }
+  
     for (enemy2* e : e2_vec)
     {
-        e->removeFromParentAndCleanup(true);
+        e2_vec_wait.pushBack(e);
+        e->setPosition(Vec2(999, 999));
+        e->unscheduleUpdate();
+        e->enemy2_DisAct();
     }
-    for (enemy2* e : e2_vec_wait)
-    {
-        e->removeFromParentAndCleanup(true);
-    }
-
    
     e1_vec.clear();
-    e1_vec_wait.clear();
+    //e1_vec_wait.clear();
     e2_vec.clear();
-    e2_vec_wait.clear();
+    //e2_vec_wait.clear();
+}
 
-    this->setVisible(false);
+void enemyManager::reset()
+{
+    e1_timer = 0;
+    e2_timer = 0;
+    e2_y = 0;
+
+   
+
+    this->scheduleUpdate();
 }
 
 enemyManager* enemyManager::getIns()
@@ -155,6 +162,7 @@ enemyManager* enemyManager::getIns()
     if (obj == 0)
     {
         obj = enemyManager::create();
+        obj->retain();
     }
     return obj;
 }

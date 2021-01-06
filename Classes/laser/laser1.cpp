@@ -4,7 +4,7 @@
 
 bool laser1::init()
 {
-    Sprite* laser = Sprite::create("BULLET.png");
+    Sprite* laser = Sprite::create("shot_2.png");
     this->addChild(laser);
     laser->setName("laser");
     laser1_DisAct();

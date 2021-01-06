@@ -3,6 +3,8 @@
 #include "bulletManager.h"
 #include "enemies/eBullet.h"
 #include "Scene/s_ClearScene.h"
+#include "soundManager.h"
+#include "Player/Player.h"
 
 bool Boss::init()
 {
@@ -19,6 +21,7 @@ bool Boss::init()
     MoveBy* m1 = MoveBy::create(2, Vec2(-300,0));
     this->runAction(m1);
 
+    bulletNext = false;
     Next = false;
     Die = false;
     particle = false;
@@ -26,7 +29,7 @@ bool Boss::init()
 
     this->scheduleUpdate();
 
-    Hp = 10;
+    Hp = 20;
     return true;
 }
 
@@ -43,7 +46,8 @@ Rect Boss::GetBox()
 void Boss::Damage()
 {
     Hp--;
-    if (Hp == 5)
+    soundManager::getIns()->sfx(0);
+    if (Hp == 10)
     {
         change();
     }
@@ -56,11 +60,10 @@ void Boss::Damage()
 void Boss::update(float dt)
 {
     Time += dt;
-    
-    if(Time >= 2.5f && Die != true)
+    speed += dt * 40;
+    if(Die != true)
     {
-        speed += dt * 80;
-        this->setPosition(this->getPosition() + dir * dt * speed);
+        this->setPosition(this->getPosition() + dir * dt * now_speed);
         if (this->getPositionX() < 600) {
             dir += Vec2(2, 0);
         }
@@ -96,6 +99,7 @@ void Boss::update(float dt)
 
         if(DeadTime > 5)
         {
+            soundManager::getIns()->sfx(1);
             s_ClearScene* sc = s_ClearScene::create();
             Director::getInstance()->replaceScene(sc);
             this->removeFromParentAndCleanup(true);
@@ -104,14 +108,23 @@ void Boss::update(float dt)
     shotTime += dt;
     if (shotTime >= 2)
     {
-        now_speed = speed;
+        now_speed = 0;
         shotTime -= 2;
-        pattern_1();
-        speed=0;
+        
+        if (Next == true && bulletNext == false) {
+            pattern_2();
+            bulletNext = true;
+        }
+
+        else if (Next == false||bulletNext == true)
+        {
+            pattern_1();
+            bulletNext = false;
+        }
     }
-    if (shotTime == 0.5f)
+    if (shotTime >= 0.5f)
     {
-        speed = now_speed;
+        now_speed = speed;
     }
 }
 
@@ -149,7 +162,7 @@ void Boss::dirMax()
 void Boss::pattern_1()
 {
     
-    for (float i = -0.5f; i < 2; i=i+0.5f) {
+    for (float i = -1; i <= 1; i=i+0.2f) {
         if ((eBullet*)bulletManager::getIns()->b_e_vec_wait.size() > 0)
         {
             eBullet* e = (eBullet*)bulletManager::getIns()->b_e_vec_wait.back();
@@ -171,6 +184,32 @@ void Boss::pattern_1()
 
 void Boss::pattern_2()
 {
+    Player* play = Player::getIns();
+    Sprite* player = (Sprite*)play->getChildByName("player");
+    if ((eBullet*)bulletManager::getIns()->b_e_vec_wait.size() > 0)
+    {
+        eBullet* e = (eBullet*)bulletManager::getIns()->b_e_vec_wait.back();
+        bulletManager::getIns()->b_e_vec.pushBack(e);
+        bulletManager::getIns()->b_e_vec_wait.eraseObject(e);
+        e->eb_Active(this->getPosition());
+        Vec2 direct = e->getPosition() - player->getPosition();
+        direct = direct.getNormalized();
+        e->dir = direct;
+        e->speed = 500;
+        e->setScale(6);
+    }
+    else
+    {
+        eBullet* e = eBullet::create();
+        this->getParent()->addChild(e);
+        bulletManager::getIns()->b_e_vec.pushBack(e);
+        e->eb_Active(this->getPosition());
+        Vec2 direct = e->getPosition() - player->getPosition();
+        direct = direct.getNormalized();
+        e->dir = direct;
+        e->speed = 500;
+        e->setScale(6);
+    }
 }
 
 

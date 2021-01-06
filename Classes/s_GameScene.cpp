@@ -6,10 +6,12 @@
 #include "bulletManager.h"
 #include "BackGround.h"
 #include "uiManager.h"
+#include "soundManager.h"
 bool s_GameScene::init()
 {
 
     Player* play = Player::getIns();
+    play->setParent(NULL);
     this->addChild(play);
     play->setName("Player");
 
@@ -42,7 +44,7 @@ bool s_GameScene::init()
 void s_GameScene::update(float dt)
 {
     Time += dt;
-    if (Time >= 20 && bossTrue == false)
+    if (Time >= 1 && bossTrue == false)
     {
         enemyManager::getIns()->eM_DisAct();
         Boss* boss = Boss::create();

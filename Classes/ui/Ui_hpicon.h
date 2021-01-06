@@ -9,6 +9,8 @@ public:
 
 	CREATE_FUNC(Ui_hpicon);
 
+	void reset();
+
 	static Ui_hpicon* getIns();
 };
 

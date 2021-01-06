@@ -2,9 +2,9 @@
 #include <cocos2d.h>
 USING_NS_CC;
 
-#include "enemies/enemy1.h"
-#include "enemies/enemy2.h"
-#include "enemies/eBullet.h"
+#include "../enemies/enemy1.h"
+#include "../enemies/enemy2.h"
+#include "../enemies/eBullet.h"
 
 class enemyManager:public Layer
 {
@@ -24,6 +24,8 @@ public:
 	float e1_timer, e2_timer; //에너미1,2 생성 타이머
 	
 	int e2_y; //에너미2 y축 정하는 int
+
+	void reset();
 
 	static enemyManager* getIns();
 

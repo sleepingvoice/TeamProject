@@ -1,6 +1,6 @@
 #include "enemy2.h"
-#include "enemies/enemyManager.h"
-#include "bulletManager.h"
+#include "../enemies/enemyManager.h"
+#include "../bulletManager.h"
 
 bool enemy2::init()
 {

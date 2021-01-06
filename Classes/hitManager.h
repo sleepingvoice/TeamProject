@@ -21,6 +21,8 @@ public:
 	enemyManager* em = enemyManager::getIns();
 	bulletManager* bullet = bulletManager::getIns();
 
+	void reset();
+
 	static hitManager* getIns();
 
 private:

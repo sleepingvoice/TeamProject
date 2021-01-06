@@ -1,8 +1,11 @@
 #include "s_GameoverScene.h"
 #include "s_StartScene.h"
+#include "soundManager.h"
 
 bool s_GameoverScene::init()
 {
+    soundManager::getIns()->bgm(3);
+
     Label* Die = Label::createWithTTF("Game Over", "fonts/Recipekorea_FONT.ttf", 100);
     this->addChild(Die);
     Die->setTextColor(Color4B(255, 215, 0, 255));
@@ -40,6 +43,7 @@ void s_GameoverScene::onKeyPress(EventKeyboard::KeyCode key, Event* e)
 {
     if (key==EventKeyboard::KeyCode::KEY_R)
     {
+        soundManager::getIns()->stopA();
         s_StartScene* sc = s_StartScene::create();
         Director::getInstance()->replaceScene(sc);
     }
@@ -49,6 +53,7 @@ void s_GameoverScene::onKeyPress(EventKeyboard::KeyCode key, Event* e)
     }
     if (key == EventKeyboard::KeyCode::KEY_ENTER)
     {
+        soundManager::getIns()->stopA();
         if (nowBlk == true)
         {
             exit(0);

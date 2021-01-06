@@ -18,6 +18,7 @@ public:
 	bool particle;
 	float DeadTime = 0;
 	int now_speed;
+	bool bulletNext;
 
 
 	Rect GetBox();

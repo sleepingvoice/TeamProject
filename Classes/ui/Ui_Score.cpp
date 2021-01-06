@@ -23,10 +23,20 @@ void Ui_Score::scoreUp(int score)
     s->setString(str);
 }
 
+void Ui_Score::reset()
+{
+    finalScore = 0;
+
+    Label* s = (Label*)this->getChildByName("score");
+    std::string str = StringUtils::format("00000");
+    s->setString(str);
+}
+
 Ui_Score* Ui_Score::getIns()
 {
     if (obj == 0) {
         obj = Ui_Score::create();
+        obj->retain();
     }
     return obj;
 }

@@ -17,6 +17,8 @@ public:
 
 	void update(float dt);
 
+	void reset();
+
 	static bulletManager* getIns();
 private:
 	CREATE_FUNC(bulletManager);

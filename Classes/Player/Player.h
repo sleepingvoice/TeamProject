@@ -25,6 +25,8 @@ public:
 	//플레이어 충돌함수
 	void damage();
 
+	void reset();
+
 	static Player* getIns();
 
 	void mouseDown(EventMouse* e);

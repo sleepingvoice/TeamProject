@@ -1,7 +1,7 @@
 #include "player_shoot.h"
-#include "bulletManager.h"
-#include "laser/laser1.h"
-#include "laser/laser2.h"
+#include "../bulletManager.h"
+#include "../laser/laser1.h"
+#include "../laser/laser2.h"
 
 static player_shoot* obj = NULL;
 
@@ -52,7 +52,9 @@ void player_shoot::mouseDown(EventMouse* e)
 
 player_shoot* player_shoot::getIns()
 {
-    if (obj == NULL)
+    if (obj == NULL) {
         obj = player_shoot::create();
+        obj->retain();
+    }
     return obj;
 }

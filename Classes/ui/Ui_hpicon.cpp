@@ -1,5 +1,5 @@
 #include "Ui_hpicon.h"
-#include "Player/Player.h"
+#include "../Player/Player.h"
 
 static Ui_hpicon* obj = 0;
 
@@ -24,10 +24,19 @@ void Ui_hpicon::damage()
     }
 }
 
+void Ui_hpicon::reset()
+{
+    for (int i = 1; i < 4; i++) {
+        Sprite* hp = (Sprite*)this->getChildByTag(i);
+        hp->setTexture("hud_heartFull.png");
+    }
+}
+
 Ui_hpicon* Ui_hpicon::getIns()
 {
     if (obj == 0) {
         obj = Ui_hpicon::create();
+        obj->retain();
     }
     return obj;
 }

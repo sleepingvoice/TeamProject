@@ -1,5 +1,5 @@
 #include "eBullet.h"
-#include "bulletManager.h"
+#include "../bulletManager.h"
 
 bool eBullet::init()
 {

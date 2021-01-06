@@ -1,8 +1,11 @@
 #include "s_ClearScene.h"
 #include "Scene/s_StartScene.h"
+#include "soundManager.h"
 
 bool s_ClearScene::init()
 {
+    soundManager::getIns()->bgm(2);
+
     Label* clear = Label::createWithTTF("Stage Clear!", "fonts/Recipekorea_FONT.ttf", 100);
     this->addChild(clear);
     clear->setTextColor(Color4B(255, 215, 0, 255));
@@ -44,6 +47,7 @@ bool s_ClearScene::init()
 
 void s_ClearScene::onKeyPress(EventKeyboard::KeyCode key, Event* e)
 {
+    soundManager::getIns()->stopA();
     s_StartScene* sc = s_StartScene::create();
     Director::getInstance()->replaceScene(sc);
 }

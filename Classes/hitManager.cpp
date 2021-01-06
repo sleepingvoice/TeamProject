@@ -230,11 +230,18 @@ void hitManager::update(float dt)
 
 
 
+void hitManager::reset()
+{
+    unscheduleUpdate();
+    scheduleUpdate();
+}
+
 hitManager* hitManager::getIns()
 {
     if (obj == 0)
     {
         obj = hitManager::create();
+        obj->retain();
     }
     return obj;
 }

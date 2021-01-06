@@ -1,6 +1,6 @@
 #include "Player.h"
 #include "player_shoot.h"
-#include "Scene/s_GameoverScene.h"
+#include "../Scene/s_GameoverScene.h"
 
 static Player* obj = 0;
 
@@ -103,12 +103,11 @@ void Player::damage()
 		//Ãæµ¹ ÈÄ ºþÂ¦ÀÓ È¿°ú¸¦ ÁÜ
 		Sprite* p = (Sprite*)this->getChildByName("player");
 		Blink* bnk = Blink::create(3, 6);
-		DelayTime* dt = DelayTime::create(0.8);
 
 		CallFunc* dis = CallFunc::create(CC_CALLBACK_0(Player::player_DisAct, this));
 		CallFunc* act = CallFunc::create(CC_CALLBACK_0(Player::player_Act, this));
 
-		Sequence* seq = Sequence::create(dis, bnk, dt, act, 0);
+		Sequence* seq = Sequence::create(dis, bnk, act, 0);
 		p->runAction(seq);
 	}
 	else if (hp <= 0) {
@@ -117,10 +116,28 @@ void Player::damage()
 	}
 }
 
+void Player::reset()
+{
+	Sprite* p = (Sprite*)this->getChildByName("player");
+	p->setVisible(true);
+
+	isDamage = true;
+	hp = 3;
+	speed = 350;
+	left = false;
+	right = false;
+	up = false;
+	down = false;
+	p->setPosition(Vec2(100, 360));
+
+	this->scheduleUpdate();
+}
+
 Player* Player::getIns()
 {
 	if (obj == 0) {
 		obj = Player::create();
+		obj->retain();
 	}
 	return obj;
 }
