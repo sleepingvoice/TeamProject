@@ -2,6 +2,8 @@
 #include <AudioEngine.h>
 using namespace experimental;
 
+#include "Player/player_shoot.h"
+
 static soundManager* obj = 0;
 
 bool soundManager::init()
@@ -67,6 +69,7 @@ bool soundManager::init()
     bt->setPosition(Vec2(1250, 690));
     bt->setZOrder(10);
     bt->addEventListener(CC_CALLBACK_2(soundManager::btnClk, this));
+    bt->setTag(8);
 
     return true;
 }
@@ -78,19 +81,27 @@ void soundManager::btnClk(Ref* ref, CheckBox::EventType type)
 
     if (b == true)
     {
+        Director::getInstance()->pause();
+        player_shoot::getIns()->onPause = true;
         for (int i = 1; i <= 7; i++)
         {
             Node* n = (Node*)this->getChildByTag(i);
             n->setVisible(true);
         }
+        Node* n = (Node*)this->getChildByTag(8);
+        n->setPosition(Vec2(815, 455));
     }
     else if (b == false)
     {
+        Director::getInstance()->resume();
+        player_shoot::getIns()->onPause = false;
         for (int i = 1; i <= 7; i++)
         {
             Node* n = (Node*)this->getChildByTag(i);
             n->setVisible(false);
         }
+        Node* n = (Node*)this->getChildByTag(8);
+        n->setPosition(Vec2(1250, 690));
     }
 }
 
@@ -100,6 +111,8 @@ void soundManager::sliderMove1(Ref* ref, Slider::EventType type)
     {
         Slider* sld = (Slider*)ref;
 
+        UserDefault::getInstance()->setFloatForKey("bgm_vol", sld->getPercent() * 0.01f);
+        int bgm_tag = UserDefault::getInstance()->getIntegerForKey("bgm_tag");
         AudioEngine::setVolume(bgm_tag, sld->getPercent() * 0.01f);
     }
 }
@@ -110,7 +123,7 @@ void soundManager::sliderMove2(Ref* ref, Slider::EventType type)
     {
         Slider* sld = (Slider*)ref;
 
-        sfx_vol = sld->getPercent() * 0.01f;
+        UserDefault::getInstance()->setFloatForKey("sfx_vol", sld->getPercent() * 0.01f);
     }
 }
 
@@ -121,73 +134,76 @@ void soundManager::chkBt(Ref* ref, CheckBox::EventType type)
 
     if (b == true)
     {
-        AudioEngine::pause(bgm_tag);
-        mute = true;
+        int bgm_tag = UserDefault::getInstance()->getIntegerForKey("bgm_tag");
+        AudioEngine::setVolume(bgm_tag, 0);
+        UserDefault::getInstance()->setBoolForKey("mute", true);
     }
     else if (b == false)
     {
-        AudioEngine::resume(bgm_tag);
-        mute = false;
+        int bgm_tag = UserDefault::getInstance()->getIntegerForKey("bgm_tag");
+        AudioEngine::setVolume(bgm_tag, UserDefault::getInstance()->getFloatForKey("bgm_vol"));
+        UserDefault::getInstance()->setBoolForKey("mute", false);
     }
 }
 
 void soundManager::bgm(int i)
 {
-    if (mute == false)
+    int bgm_tag;
+    switch (i)
     {
-        switch (i)
-        {
-        case 0:
-            bgm_tag = AudioEngine::play2d("BGM/EnemiesBattle.mp3", true, bgm_vol);
-            break;
-        case 1:
-            AudioEngine::stop(bgm_tag);
-            bgm_tag = AudioEngine::play2d("BGM/BossBattle.mp3", true, bgm_vol);
-            break;
-        case 2:
-            AudioEngine::stop(bgm_tag);
-            AudioEngine::play2d("BGM/Clear.mp3", false, bgm_vol);
-            break;
-        case 3:
-            AudioEngine::stop(bgm_tag);
-            AudioEngine::play2d("BGM/GameOver.mp3", false, bgm_vol);
-            break;
-        }
-    }
-    else if (mute == true && i == 2)
-    {
+    case 0:
+        bgm_tag = AudioEngine::play2d("BGM/EnemiesBattle.mp3", true, UserDefault::getInstance()->getFloatForKey("bgm_vol"));
+        UserDefault::getInstance()->setIntegerForKey("bgm_tag", bgm_tag);
+        break;
+    case 1:
+        bgm_tag = UserDefault::getInstance()->getIntegerForKey("bgm_tag");
         AudioEngine::stop(bgm_tag);
-        bgm_tag = AudioEngine::play2d("BGM/BossBattle.mp3", true, bgm_vol);
-        AudioEngine::pause(bgm_tag);
+        bgm_tag = AudioEngine::play2d("BGM/BossBattle.mp3", true, UserDefault::getInstance()->getFloatForKey("bgm_vol"));
+        UserDefault::getInstance()->setIntegerForKey("bgm_tag", bgm_tag);
+        break;
+    case 2:
+        bgm_tag = UserDefault::getInstance()->getIntegerForKey("bgm_tag");
+        AudioEngine::stop(bgm_tag);
+        bgm_tag = AudioEngine::play2d("BGM/Clear.mp3", false, UserDefault::getInstance()->getFloatForKey("bgm_vol"));
+        break;
+    case 3:
+        bgm_tag = UserDefault::getInstance()->getIntegerForKey("bgm_tag");
+        AudioEngine::stop(bgm_tag);
+        bgm_tag = AudioEngine::play2d("BGM/GameOver.mp3", false, UserDefault::getInstance()->getFloatForKey("bgm_vol"));
+        break;
+    }
+    if (UserDefault::getInstance()->getBoolForKey("mute") == true)
+    {
+        AudioEngine::setVolume(bgm_tag, 0);
     }
 }
 
 void soundManager::sfx(int i)
 {
-    if (mute == false)
+    if (UserDefault::getInstance()->getBoolForKey("mute") == false)
     {
         switch (i)
         {
         case 0:
-            AudioEngine::play2d("SFX/EnemyHit.mp3", false, sfx_vol);
+            AudioEngine::play2d("SFX/EnemyHit.mp3", false, UserDefault::getInstance()->getFloatForKey("sfx_vol"));
             break;
         case 1:
-            AudioEngine::play2d("SFX/EnemyDie.mp3", false, sfx_vol);
+            AudioEngine::play2d("SFX/EnemyDie.mp3", false, UserDefault::getInstance()->getFloatForKey("sfx_vol"));
             break;
         case 2:
-            AudioEngine::play2d("SFX/Player/LaserShoot.mp3", false, sfx_vol);
+            AudioEngine::play2d("SFX/Player/LaserShoot.mp3", false, UserDefault::getInstance()->getFloatForKey("sfx_vol"));
             break;
         case 3:
-            AudioEngine::play2d("SFX/Player/LootTem.mp3", false, sfx_vol);
+            AudioEngine::play2d("SFX/Player/LootTem.mp3", false, UserDefault::getInstance()->getFloatForKey("sfx_vol"));
             break;
         case 4:
-            AudioEngine::play2d("SFX/Player/Male/m_Hit.mp3", false, sfx_vol);
+            AudioEngine::play2d("SFX/Player/Male/m_Hit.mp3", false, UserDefault::getInstance()->getFloatForKey("sfx_vol"));
             break;
         case 5:
-            AudioEngine::play2d("SFX/Player/Male/m_Die.mp3", false, sfx_vol);
+            AudioEngine::play2d("SFX/Player/Male/m_Die.mp3", false, UserDefault::getInstance()->getFloatForKey("sfx_vol"));
             break;
         case 6:
-            AudioEngine::play2d("SFX/Player/Male/m_Start.mp3", false, sfx_vol);
+            AudioEngine::play2d("SFX/Player/Male/m_Start.mp3", false, UserDefault::getInstance()->getFloatForKey("sfx_vol"));
             break;
         }
     }
@@ -203,6 +219,7 @@ soundManager* soundManager::getIns()
     if (obj == 0)
     {
         obj = soundManager::create();
+        obj->retain();
     }
     return obj;
 }

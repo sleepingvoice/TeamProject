@@ -6,9 +6,10 @@
 #include "bulletManager.h"
 #include "BackGround.h"
 #include "uiManager.h"
+#include "soundManager.h"
+
 bool s_GameScene::init()
 {
-
     Player* play = Player::getIns();
     play->reset();
     play->setParent(NULL);
@@ -43,6 +44,12 @@ bool s_GameScene::init()
     ui->setParent(NULL);
     this->addChild(ui);
 
+    soundManager* s = soundManager::getIns();
+    s->setParent(NULL);
+    this->addChild(s);
+    s->bgm(0);
+    s->sfx(6);
+
     bossTrue = false;
 
     this->scheduleUpdate();
@@ -54,8 +61,9 @@ bool s_GameScene::init()
 void s_GameScene::update(float dt)
 {
     Time += dt;
-    if (Time >= 60 && bossTrue == false)
+    if (Time >= 20 && bossTrue == false)
     {
+        soundManager::getIns()->bgm(1);
         enemyManager::getIns()->eM_DisAct();
         Boss* boss = Boss::create();
         this->addChild(boss);
