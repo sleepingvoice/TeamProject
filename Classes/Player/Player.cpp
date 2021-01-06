@@ -1,6 +1,6 @@
 #include "Player.h"
 #include "player_shoot.h"
-#include "../Scene/s_GameoverScene.h"
+#include "Scene/s_GameOverScene.h"
 
 static Player* obj = 0;
 
@@ -15,7 +15,6 @@ bool Player::init()
 	down = false;
 
     Sprite* player = Sprite::create("playertest.png");
-    player->setPosition(Vec2(100, 360));
     this->addChild(player);
     player->setName("player");
 
@@ -76,15 +75,18 @@ void Player::Release(EventKeyboard::KeyCode key, Event* e)
 
 void Player::update(float dt)
 {
-	Sprite* p = (Sprite*)this->getChildByName("player");
-	if (left == true)
-		p->setPositionX(p->getPositionX() - speed * dt);
-	else if (right == true)
-		p->setPositionX(p->getPositionX() + speed * dt);
-	if (down == true)
-		p->setPositionY(p->getPositionY() - speed * dt);
-	if (up == true)
-		p->setPositionY(p->getPositionY() + speed * dt);
+	if (this->getPositionX() > 10&& left == true) {
+		this->setPositionX(this->getPositionX() - speed * dt);
+	}
+	if(this->getPositionX() <1270&& right == true){
+		this->setPositionX(this->getPositionX() + speed * dt);
+	}
+	if (this->getPositionY() > 10 && down == true) {
+		this->setPositionY(this->getPositionY() - speed * dt);
+	}
+	if (this->getPositionY() < 710 && up == true) {
+		this->setPositionY(this->getPositionY() + speed * dt);
+	}
 }
 
 Rect Player::getBox()
@@ -128,7 +130,6 @@ void Player::reset()
 	right = false;
 	up = false;
 	down = false;
-	p->setPosition(Vec2(100, 360));
 
 	this->scheduleUpdate();
 }

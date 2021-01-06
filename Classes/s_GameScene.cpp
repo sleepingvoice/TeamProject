@@ -14,6 +14,7 @@ bool s_GameScene::init()
     play->setParent(NULL);
     this->addChild(play);
     play->setName("Player");
+    play->setPosition(Vec2(100, 360));
 
     enemyManager* em = enemyManager::getIns();
     em->eM_DisAct();
@@ -53,7 +54,7 @@ bool s_GameScene::init()
 void s_GameScene::update(float dt)
 {
     Time += dt;
-    if (Time >= 60 && bossTrue == false)
+    if (Time >= 1 && bossTrue == false)
     {
         enemyManager::getIns()->eM_DisAct();
         Boss* boss = Boss::create();
