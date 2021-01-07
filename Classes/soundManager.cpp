@@ -107,7 +107,7 @@ void soundManager::btnClk(Ref* ref, CheckBox::EventType type)
 
 void soundManager::sliderMove1(Ref* ref, Slider::EventType type)
 {
-    if (type == Slider::EventType::ON_PERCENTAGE_CHANGED)
+    if (type == Slider::EventType::ON_PERCENTAGE_CHANGED && UserDefault::getInstance()->getBoolForKey("mute") == false)
     {
         Slider* sld = (Slider*)ref;
 
