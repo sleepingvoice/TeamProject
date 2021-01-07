@@ -11,7 +11,7 @@ public:
 	float speed;
 	Vec2 dir;
 
-	void update(float dt), eb_Active(Vec2 v), eb_DisAct(), damage();
+	void update(float dt), eb_Active(Vec2 v), eb_DisAct(), damage(), scale();
 
 	Rect getBox();
 };

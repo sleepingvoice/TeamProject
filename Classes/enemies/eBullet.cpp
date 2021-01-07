@@ -28,6 +28,12 @@ void eBullet::damage()
     this->setPositionX(-40);
 }
 
+void eBullet::scale()
+{
+    Sprite* spr = (Sprite*)this->getChildByName("bul");
+    spr->setScale(6);
+}
+
 void eBullet::eb_Active(Vec2 v)
 {
     this->setPosition(v);
@@ -40,6 +46,8 @@ void eBullet::eb_Active(Vec2 v)
 
 void eBullet::eb_DisAct()
 {
+    Sprite* spr = (Sprite*)this->getChildByName("bul");
+    spr->setScale(1);
     this->stopAllActions();
     this->unscheduleUpdate();
     this->setVisible(false);

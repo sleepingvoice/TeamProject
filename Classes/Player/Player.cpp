@@ -19,7 +19,8 @@ bool Player::init()
     this->addChild(player);
     player->setName("player");
 	player->setPosition(Vec2(100, 360));
-	player->setZOrder(0);
+	player->setZOrder(2);
+	player->setColor(Color3B::RED);
 
 	Sprite* playout = Sprite::create("PLAYER_back.png");
 	playout->setZOrder(1);

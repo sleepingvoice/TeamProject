@@ -1,5 +1,7 @@
 #include "s_StartScene.h"
 #include "s_GameScene.h"
+#include "Scene/s_HowScene.h"
+
 bool s_StartScene::init()
 {
     Sprite* bg_stop = Sprite::create("BKG_stop_1.png");
@@ -14,6 +16,15 @@ bool s_StartScene::init()
     EventListenerKeyboard* key = EventListenerKeyboard::create();
     key->onKeyPressed = CC_CALLBACK_2(s_StartScene::onKeyPress, this);
     _eventDispatcher->addEventListenerWithSceneGraphPriority(key, this);
+
+    Button* bt = Button::create("question.png");
+    this->addChild(bt);
+    bt->setPosition(Vec2(640, 370));
+    bt->addTouchEventListener(CC_CALLBACK_2(s_StartScene::btnclk, this));
+
+    Sprite* spr = Sprite::create("tapTick.png");
+    this->addChild(spr);
+    spr->setPosition(Vec2(680, 310));
 
     return true;
 }
@@ -41,7 +52,7 @@ void s_StartScene::rabel()
     Any->setTextColor(Color4B(247, 230, 0, 255));
     Any->setPosition(Vec2(630, 200));
 
-    Label* Start = Label::createWithTTF("to Start", "fonts/Recipekorea_FONT.ttf", 50);
+    Label* Start = Label::createWithTTF("To Start", "fonts/Recipekorea_FONT.ttf", 50);
     this->addChild(Start);
     Start->setTextColor(Color4B(255, 255, 255, 255));
     Start->setPosition(Vec2(860, 200));
@@ -56,6 +67,11 @@ void s_StartScene::rabel()
     Press->runAction(rep1);
     Any->runAction(rep2);
     Start->runAction(rep3);
+}
 
+void s_StartScene::btnclk(Ref* ref, Widget::TouchEventType type)
+{
+    s_HowScene* hs = s_HowScene::create();
+    Director::getInstance()->replaceScene(hs);
 }
 

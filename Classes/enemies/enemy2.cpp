@@ -31,9 +31,9 @@ void enemy2::update(float dt)
     {
         //에너미 불렛 생성
         spawn_eb += dt;
-        if (spawn_eb >= 0.5f)
+        if (spawn_eb >= 0.4f)
         {
-            spawn_eb -= 0.5f;
+            spawn_eb -= 0.4f;
 
             if ((eBullet*)bulletManager::getIns()->b_e_vec_wait.size() > 0)
             {

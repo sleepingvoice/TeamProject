@@ -198,7 +198,7 @@ void Boss::pattern_2()
         direct = direct.getNormalized();
         e->dir = direct;
         e->speed = 1400;
-        e->setScale(6);
+        e->scale();
     }
     else
     {
@@ -210,7 +210,7 @@ void Boss::pattern_2()
         direct = direct.getNormalized();
         e->dir = direct;
         e->speed = 1400;
-        e->setScale(6);
+        e->scale();
     }
 }
 

@@ -4,7 +4,7 @@
 
 bool enemy1::init()
 {
-    Sprite* en1 = Sprite::create("ENEMY1.png");
+    Sprite* en1 = Sprite::create("enemy1.png");
     this->addChild(en1);
     en1->setName("en1");
 
