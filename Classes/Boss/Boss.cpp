@@ -197,7 +197,7 @@ void Boss::pattern_2()
         Vec2 direct = e->getPosition() - p->getPosition();
         direct = direct.getNormalized();
         e->dir = direct;
-        e->speed = 500;
+        e->speed = 1400;
         e->setScale(6);
     }
     else
@@ -209,7 +209,7 @@ void Boss::pattern_2()
         Vec2 direct = e->getPosition() - p->getPosition();
         direct = direct.getNormalized();
         e->dir = direct;
-        e->speed = 500;
+        e->speed = 1400;
         e->setScale(6);
     }
 }

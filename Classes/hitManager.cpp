@@ -182,6 +182,7 @@ void hitManager::Bosslaser()
                 Rect r2 = boss->GetBox();
                 if (r1.intersectsRect(r2) == true)
                 {
+                    Ui_Score::getIns()->scoreUp(10);
                     boss->Damage();
                     Pbul->setPositionX(9999);
                 }
@@ -199,6 +200,7 @@ void hitManager::Bosslaser()
                 Rect r2 = boss->GetBox();
                 if (r1.intersectsRect(r2) == true)
                 {
+                    Ui_Score::getIns()->scoreUp(10);
                     boss->Damage();
                     Pbul->setPositionX(9999);
                 }

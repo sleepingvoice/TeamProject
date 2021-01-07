@@ -14,7 +14,7 @@ bool laser1::init()
 
 void laser1::update(float dt)
 {
-    this->setPositionX(this->getPositionX() + 400 * dt);
+    this->setPositionX(this->getPositionX() + 800 * dt);
 }
 
 void laser1::laser1_Active()

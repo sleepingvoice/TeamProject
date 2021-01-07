@@ -82,7 +82,7 @@ void laser2::update(float dt)
 	}
 
 	Vec2 nor = dir.getNormalized();
-	this->setPosition(this->getPosition() + nor * 800 * dt);
+	this->setPosition(this->getPosition() + nor * 600 * dt);
 }
 
 void laser2::laser2_Active()

@@ -76,10 +76,6 @@ bool BackGround::init()
     bg_move2_3->setTag(8);
     bg_move3_3->setTag(9);
 
-
-    
-
-
     speed1 = 300;
     speed2 = 200;
     speed3 = 100;
@@ -151,7 +147,4 @@ void BackGround::update(float dt)
     {
         pSpr3_3->setPositionX(1910);
     }
-    
-
-
 }

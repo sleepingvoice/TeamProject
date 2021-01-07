@@ -61,7 +61,7 @@ bool s_GameScene::init()
 void s_GameScene::update(float dt)
 {
     Time += dt;
-    if (Time >= 20 && bossTrue == false)
+    if (Time >= 50 && bossTrue == false)
     {
         soundManager::getIns()->bgm(1);
         enemyManager::getIns()->eM_DisAct();

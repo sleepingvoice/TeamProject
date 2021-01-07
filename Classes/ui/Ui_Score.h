@@ -7,6 +7,7 @@ public:
 	bool init();
 
 	int finalScore;
+	bool checkLabel;
 
 	void scoreUp(int score);
 	void update(float dt);

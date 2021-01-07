@@ -64,8 +64,11 @@ void enemy1::enemy1_DisAct()
 void enemy1::damage()
 //에너미 데미지 받았을 때 처리
 {
-    soundManager::getIns()->sfx(1);
-    this->setPositionX(-500);
+    if (this->getPositionX() <= 1340)
+    {
+        soundManager::getIns()->sfx(1);
+        this->setPositionX(-500);
+    }
 }
 
 Rect enemy1::getBox()

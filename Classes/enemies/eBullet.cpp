@@ -9,7 +9,7 @@ bool eBullet::init()
     bul->setColor(Color3B::RED);
 
     dir = Vec2(1, 0);
-    speed = 200;
+    speed = 500;
 
     this->setPosition(Vec2(9999, 999));
 

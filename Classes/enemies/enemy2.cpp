@@ -27,13 +27,13 @@ void enemy2::update(float dt)
     {
         this->unscheduleUpdate();
     }
-    else if (this->getPositionX() <= 1235)
+    else if (this->getPositionX() <= 1005)
     {
         //에너미 불렛 생성
         spawn_eb += dt;
-        if (spawn_eb >= 1)
+        if (spawn_eb >= 0.5f)
         {
-            spawn_eb -= 1;
+            spawn_eb -= 0.5f;
 
             if ((eBullet*)bulletManager::getIns()->b_e_vec_wait.size() > 0)
             {
@@ -89,15 +89,18 @@ void enemy2::enemy2_DisAct()
 
 void enemy2::damage()
 {
-    hp--;
-    if (hp <= 0)
+    if (this->getPositionX() <= 1320)
     {
-        soundManager::getIns()->sfx(1);
-        this->setPositionY(785);
-    }
-    else
-    {
-        soundManager::getIns()->sfx(0);
+        hp--;
+        if (hp <= 0)
+        {
+            soundManager::getIns()->sfx(1);
+            this->setPositionY(785);
+        }
+        else
+        {
+            soundManager::getIns()->sfx(0);
+        }
     }
 }
 

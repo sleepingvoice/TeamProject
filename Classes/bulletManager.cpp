@@ -50,7 +50,7 @@ void bulletManager::update(float dt)
         eBullet* e = (eBullet*)Bullet;
         if (e->getPositionX() <= -35) {
             e->setScale(1);
-            e->speed = 200;
+            e->speed = 500;
             b_e_vec_wait.pushBack((Node*)e);
             b_e_vec.eraseObject(e);
             e->eb_DisAct();

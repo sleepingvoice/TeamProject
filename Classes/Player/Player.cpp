@@ -143,6 +143,9 @@ void Player::reset()
 	Sprite* p = (Sprite*)this->getChildByName("player");
 	p->setVisible(true);
 
+	Sprite* o = (Sprite*)this->getChildByName("out");
+	o->setVisible(true);
+
 	isDamage = true;
 	hp = 3;
 	speed = 350;

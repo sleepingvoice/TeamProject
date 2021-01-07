@@ -100,7 +100,7 @@ bool AppDelegate::applicationDidFinishLaunching() {
     // if the frame's height is larger than the height of medium size.
 
     register_all_packages();
- 
+
     UserDefault::getInstance()->setBoolForKey("mute", false);
     UserDefault::getInstance()->setIntegerForKey("bgm_tag", 0);
     UserDefault::getInstance()->setFloatForKey("bgm_vol", 1);
