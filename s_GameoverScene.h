@@ -1,17 +1,12 @@
 #pragma once
-#pragma execution_character_set("utf-8")
 #include <cocos2d.h>
 USING_NS_CC;
-using namespace std;
-class s_GameoverScene:public Scene
+class s_GameOverScene :public Scene
 {
 public:
 	bool init();
-	CREATE_FUNC(s_GameoverScene);
+	CREATE_FUNC(s_GameOverScene);
 
-	bool nowBlk;
-	
-	void onKeyPress(EventKeyboard::KeyCode key, Event* e);
-	void next();
+	void OnkeyboardPress(EventKeyboard::KeyCode key, Event* e);
 };
 
